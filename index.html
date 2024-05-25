@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="google-site-verification" content="HQpb8JxnmHzkE3ivoR5F4GR4deNr0hVFb06oaPV5u8s" />
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Deformable Neural Radiance Fields creates free-viewpoint portraits (nerfies) from casually captured videos.">
+  <meta name="keywords" content="Nerfies, D-NeRF, NeRF">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Unique3D: High-Quality and Efficient 3D Mesh Generation from a Single Image</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <!-- <link rel="icon" href="./static/images/favicon.svg"> -->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+  <!-- For 3D online view -->
+  <script async="" src="https://unpkg.com/es-module-shims@1.8.0/dist/es-module-shims.js"></script>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.156.1/build/three.module.js",
+        "three/controls/OrbitControls": "https://unpkg.com/three@0.156.1/examples/jsm/controls/OrbitControls.js",
+        "three/libs/stats": "https://unpkg.com/three@0.156.1/examples/jsm/libs/stats.module.js"
+      }
+    }
+  </script>
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.1.1/model-viewer.min.js"></script>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer@latest/dist/model-viewer.min.js"></script>
+  <style>
+    model-viewer {
+      width: 300px;
+      height: 300px;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <!-- <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://keunhong.com">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://hypernerf.github.io">
+            HyperNeRF
+          </a>
+          <a class="navbar-item" href="https://nerfies.github.io">
+            Nerfies
+          </a>
+        </div>
+      </div>
+    </div> -->
+
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Unique3D: High-Quality and Efficient 3D Mesh Generation from a Single Image</h1>
+          <!-- <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://keunhong.com">Keunhong Park</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://utkarshsinha.com">Utkarsh Sinha</a><sup>2</sup>,</span>
+            <span class="author-block">
+              <a href="https://jonbarron.info">Jonathan T. Barron</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="http://sofienbouaziz.com">Sofien Bouaziz</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://www.danbgoldman.com">Dan B Goldman</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://homes.cs.washington.edu/~seitz/">Steven M. Seitz</a><sup>1,2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="http://www.ricardomartinbrualla.com">Ricardo Martin-Brualla</a><sup>2</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>University of Washington,</span>
+            <span class="author-block"><sup>2</sup>Google Research</span>
+          </div> -->
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <span class="link-block">
+                <a href="https://wukailu.github.io/Unique3D_web"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv(Comming soon)</span>
+                </a>
+              </span>
+              <!-- Video Link. -->
+              <!-- <span class="link-block">
+                <a href="https://"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span> -->
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://wukailu.github.io/Unique3D_web"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code(Comming soon)</span>
+                  </a>
+              </span>
+              <!-- Demo Link. -->
+              <span class="link-block">
+                <a href="https://wukailu.github.io/Unique3D_web" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <svg class="svg-inline--fa fa-laptop fa-w-20" aria-hidden="true" focusable="false" data-prefix="fa" data-icon="laptop" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" data-fa-i2svg=""><path fill="currentColor" d="M624 416H381.54c-.74 19.81-14.71 32-32.74 32H288c-18.69 0-33.02-17.47-32.77-32H16c-8.8 0-16 7.2-16 16v16c0 35.2 28.8 64 64 64h512c35.2 0 64-28.8 64-64v-16c0-8.8-7.2-16-16-16zM576 48c0-26.4-21.6-48-48-48H112C85.6 0 64 21.6 64 48v336h512V48zm-64 272H128V64h384v256z"></path></svg>
+                  </span>
+                  <span>Demo(Comming soon)</span>
+                  </a>
+              </span>
+              <!-- Weights. -->
+              <span class="link-block">
+                <a href="https://wukailu.github.io/Unique3D_web" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <svg class="svg-inline--fa fa-database fa-w-14" aria-hidden="true" focusable="false" data-prefix="fa" data-icon="database" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M448 73.143v45.714C448 159.143 347.667 192 224 192S0 159.143 0 118.857V73.143C0 32.857 100.333 0 224 0s224 32.857 224 73.143zM448 176v102.857C448 319.143 347.667 352 224 352S0 319.143 0 278.857V176c48.125 33.143 136.208 48.572 224 48.572S399.874 209.143 448 176zm0 160v102.857C448 479.143 347.667 512 224 512S0 479.143 0 438.857V336c48.125 33.143 136.208 48.572 224 48.572S399.874 369.143 448 336z"></path></svg>
+                  </span>
+                  <span>Weights(Comming soon)</span>
+                  </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container is-centered">
+      <div class="has-text-centered">
+        <video id="dollyzoom" autoplay="" controls="" muted="" loop="" playsinline="" width="80%">
+          <source src="./static/videos/teaser.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="columns is-centered ">
+        <div class="column is-four-fifths">
+        TODO: Super3D is capable of transforming <font color="#3a86ff"> <b>a single RGB image</b> </font> of any object into a high-fidelity textured mesh <font color="#3a86ff"> <b>in under 30 seconds</b></font> . The generated meshes closely mirror the of the original input image. Super3D can be <font color="#3a86ff"> <b> trained with only 8 RTX4090 GPUs</b></font> in 5 days. 
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>In this work, we introduce <strong>Unique3D</strong>, a novel
+            image-to-3D framework for efficiently generating high-quality 3D meshes
+            from single-view images, featuring state-of-the-art generation fidelity
+            and strong generalizability. Previous methods based on Score
+            Distillation Sampling (SDS) can produce diversified 3D results by
+            distilling 3D knowledge from large 2D diffusion model, but they usually
+            suffer from long per-case optimization time with inconsistent issues.
+            Recent works address the problem and generate better 3D results either
+            by finetuning a multi-view diffusion model or training a fast
+            feed-forward model. However, they still lack intricate textures and
+            complex geometries due to inconsistency and limited generated
+            resolution. To simultaneously achieve high fidelity, consistency, and
+            efficiency in single image-to-3D, we propose a novel framework Unique3D
+            that includes a multi-view diffusion model with a corresponding normal
+            diffusion model to generate multi-view images with their normal maps, a
+            multi-level upscale process to progressively improve the resolution of
+            generated orthographic multi-views, as well as an <u>i</u>n<u>s</u>tant
+            and c<u>o</u>nsistent <u>me</u>sh <u>r</u>econstruction algorithm called
+            <em>ISOMER</em>, which fully integrates the color and geometric priors
+            into mesh results. Extensive experiments demonstrate that our Unique3D
+            significantly outperforms other image-to-3D baselines in terms of
+            geometric and textural details.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+  </div>
+</section>
+
+<!-- Method. -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <div class="has-text-centered">
+          <h2 class="title is-3">Method</h2>
+        </div>
+        <br>
+          <img src="./static/images/method.jpg" class="" alt="">
+          <strong>Pipeline of our Unique3D</strong>. Given a single wild image as input, we first generate four orthographic multi-view images from a multi-view diffusion model. Then, we progressively improve the resolution of generated multi-views through a multi-level upscale process. Given generated color images, we train a normal diffusion model to generate normal maps corresponding to multi-view images and utilize a similar strategy to lift it to high-resolution space. Finally, we reconstruct high-quality 3D meshes from high-resolution color images and normal maps with our instant and consistent mesh reconstruction algorithm <em>ISOMER</em>, which is a robust multi-view reconstruction method directly deforming the mesh and can efficiently reconstruct mesh models with millions of faces.
+        </div>
+    </div>
+  </div>
+</section>
+<!-- / Method. -->
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3"><center>Interactable Meshes</center></h2>
+
+    <div class="columns is-centered has-text-centered">
+      <div class="columns is-1 is-multiline is-mobile">
+        <div class="column pb-6 is-one-third">
+          <p>IKUN</p>
+          <model-viewer src="./static/models_3d/kunkun.glb" environment-image="./static/images/pure_grey.png" shadow-intensity="1" orientation="0deg 270deg 180deg" style="background: linear-gradient(#ffffff, #ada996); overflow-x: hidden;" camera-controls="" touch-action="pan-y" ar-status="not-presenting">
+          </model-viewer>
+        </div>
+        <div class="column pb-6 is-one-third"> 
+          <p>Person</p>
+          <model-viewer src="./static/models_3d/human.glb" environment-image="./static/images/pure_grey.png" shadow-intensity="1" orientation="0deg 270deg 180deg" style="background: linear-gradient(#ffffff, #ada996); overflow-x: hidden;" camera-controls="" touch-action="pan-y" ar-status="not-presenting">
+          </model-viewer>
+        </div>
+        <div class="column pb-6 is-one-third"> 
+          <p>Icecream</p>
+          <model-viewer src="./static/models_3d/icecream.glb" environment-image="./static/images/pure_grey.png" shadow-intensity="1" orientation="0deg 270deg 180deg" style="background: linear-gradient(#ffffff, #ada996); overflow-x: hidden;" camera-controls="" touch-action="pan-y" ar-status="not-presenting">
+          </model-viewer>        
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+<!-- <section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{park2021nerfies,
+  author    = {Park, Keunhong and Sinha, Utkarsh and Barron, Jonathan T. and Bouaziz, Sofien and Goldman, Dan B and Seitz, Steven M. and Martin-Brualla, Ricardo},
+  title     = {CRIS: Creating 3D Indoor Scenes from Blank Rooms with Text-to-Image Models},
+  journal   = {ICCV},
+  year      = {2021},
+}</code></pre>
+  </div>
+</section> -->
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="./static/videos/nerfies_paper.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            Website template from <a
+            href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
